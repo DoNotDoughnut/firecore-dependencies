@@ -61,3 +61,40 @@ impl Default for Music {
         Music::Pallet
     }
 }
+
+impl std::convert::TryFrom<u8> for Music {
+    type Error = U8ToMusicError;
+
+    fn try_from(value: u8) -> Result<Self, Self::Error> {
+        match value {
+            0x1F => Ok(Music::ViridianForest),
+            0x13 => Ok(Music::Gym),
+            0x20 => Ok(Music::MountMoon),
+            0x23 => Ok(Music::Route1),
+            0x24 => Ok(Music::Route2),
+            0x25 => Ok(Music::Route3),
+            0x26 => Ok(Music::Route4),
+            0x34 => Ok(Music::Fuchsia),
+            0x3A => Ok(Music::Pewter),
+            0x18 => Ok(Music::Lavender),
+            0x35 => Ok(Music::Celadon),
+            0x17 => Ok(Music::Cinnabar),
+            0x39 => Ok(Music::Vermilion),
+            0x2C => Ok(Music::Pallet),
+            _ => Err(U8ToMusicError::Missing),
+        }
+    }
+}
+
+#[derive(Debug)]
+pub enum U8ToMusicError {
+    Missing
+}
+
+impl std::error::Error for U8ToMusicError {}
+
+impl core::fmt::Display for U8ToMusicError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        core::fmt::Debug::fmt(&self, f)
+    }
+}
