@@ -1,6 +1,8 @@
 use serde::{Serialize, Deserialize};
 use glam::Vec2;
 
+pub mod music;
+pub mod sound;
 pub mod text;
 mod timer;
 
