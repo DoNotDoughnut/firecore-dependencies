@@ -126,6 +126,13 @@ impl Default for Direction {
 
 impl GlobalPosition {
 
+	pub const fn absolute(&self) -> Coordinate {
+		Coordinate {
+			x: self.get_x(),
+			y: self.get_y()
+		}
+	}
+
 	pub const fn get_x(&self) -> isize {
 		self.offset.x + self.local.coords.x
 	}
@@ -167,6 +174,12 @@ impl Coordinate {
 			}
 		}
 	}
+}
+
+impl core::fmt::Display for Coordinate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "({}, {})", self.x, self.y)
+    }
 }
 
 impl BoundingBox {
