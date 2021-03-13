@@ -109,7 +109,7 @@ impl Direction {
 
 	pub const fn offset_f32(&self) -> Vec2 {
 		match self {
-		    Direction::Up => Vec2 { x: 0.0, y:  -1.0 },
+		    Direction::Up => Vec2 { x: 0.0, y: -1.0 },
 		    Direction::Down => Vec2 { x: 0.0, y: 1.0 },
 		    Direction::Left => Vec2 { x: -1.0, y: 0.0 },
 		    Direction::Right => Vec2 { x: 1.0, y: 0.0 },
@@ -148,7 +148,7 @@ impl Coordinate {
 	pub const fn add(&self, x: isize, y: isize) -> Coordinate {
 		Coordinate {
 			x: self.x + x,
-			y: self.x + y,
+			y: self.y + y,
 		}
 	}
 
