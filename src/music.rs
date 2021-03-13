@@ -21,9 +21,11 @@ pub enum Music {
     ViridianForest,
     MountMoon,
     Gym,
+    OaksLab,
 
     EncounterBoy,
     EncounterGirl,
+    Oak,
 
     BattleWild, // 44.480
     BattleTrainer, // 1:41.870
@@ -32,7 +34,7 @@ pub enum Music {
 
 }
 
-pub const MUSIC_LIST: &[Music; 21] = &[
+pub const MUSIC_LIST: &[Music; 22] = &[
     Music::IntroGamefreak,
     Music::Title,
     Music::Route1,
@@ -54,6 +56,7 @@ pub const MUSIC_LIST: &[Music; 21] = &[
     Music::ViridianForest,
     Music::MountMoon,
     Music::Gym,
+    Music::Oak,
 ];
 
 impl Default for Music {
@@ -81,6 +84,8 @@ impl std::convert::TryFrom<u8> for Music {
             0x17 => Ok(Music::Cinnabar),
             0x39 => Ok(Music::Vermilion),
             0x2C => Ok(Music::Pallet),
+            0x2D => Ok(Music::OaksLab),
+            0x2E => Ok(Music::Oak),
             _ => Err(U8ToMusicError::Missing),
         }
     }
