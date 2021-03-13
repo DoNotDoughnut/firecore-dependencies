@@ -28,7 +28,7 @@ pub enum Direction { // move to util
 	
 }
 
-pub const DIRECTIONS: &[Direction; 4] = &[
+pub static DIRECTIONS: &[Direction; 4] = &[
 	Direction::Up,
 	Direction::Down,
 	Direction::Left,
@@ -50,18 +50,6 @@ pub struct GlobalPosition {
 	pub local: Position,
 	pub offset: Coordinate,
 
-}
-
-impl GlobalPosition {
-
-	pub fn get_x(&self) -> isize {
-		self.offset.x + self.local.coords.x
-	}
-
-	pub fn get_y(&self) -> isize {
-		self.offset.y + self.local.coords.y
-	}
- 
 }
 
 #[derive(Debug, Default, Clone, Copy, Deserialize, Serialize)]
@@ -90,7 +78,7 @@ pub struct BoundingBox {
 
 impl Direction {
 
-	pub fn inverse(&self) -> Direction {
+	pub const fn inverse(&self) -> Direction {
 		match self {
 		    Direction::Up => Direction::Down,
 		    Direction::Down => Direction::Up,
@@ -99,7 +87,7 @@ impl Direction {
 		}
 	}
 
-	pub fn value(&self) -> u8 {
+	pub const fn value(&self) -> u8 {
 		match self {
 			Direction::Down => 0,
 			Direction::Up => 1,
@@ -110,12 +98,21 @@ impl Direction {
 
 	// Input
 
-	pub fn offset(&self) -> (f32, f32) {
+	pub const fn tile_offset(&self) -> (isize, isize) {
 		match self {
-		    Direction::Up => (0.0, -1.0),
-		    Direction::Down => (0.0, 1.0),
-		    Direction::Left => (-1.0, 0.0),
-		    Direction::Right => (1.0, 0.0),
+		    Direction::Up => (0, -1),
+		    Direction::Down => (0, 1),
+		    Direction::Left => (-1, 0),
+		    Direction::Right => (1, 0),
+		}
+	}
+
+	pub const fn offset_f32(&self) -> Vec2 {
+		match self {
+		    Direction::Up => Vec2 { x: 0.0, y:  -1.0 },
+		    Direction::Down => Vec2 { x: 0.0, y: 1.0 },
+		    Direction::Left => Vec2 { x: -1.0, y: 0.0 },
+		    Direction::Right => Vec2 { x: 1.0, y: 0.0 },
 		}
 	}
 
@@ -127,17 +124,35 @@ impl Default for Direction {
     }
 }
 
+impl GlobalPosition {
+
+	pub const fn get_x(&self) -> isize {
+		self.offset.x + self.local.coords.x
+	}
+
+	pub const fn get_y(&self) -> isize {
+		self.offset.y + self.local.coords.y
+	}
+ 
+}
+
 impl Coordinate {
 
-	pub fn subtract(&self, x: isize, y: isize) -> Coordinate {
+	pub const fn add(&self, x: isize, y: isize) -> Coordinate {
+		Coordinate {
+			x: self.x + x,
+			y: self.x + y,
+		}
+	}
+
+	pub const fn subtract(&self, x: isize, y: isize) -> Coordinate {
 		Coordinate {
 			x: self.x - x,
 			y: self.y - y,
-			..*self
 		}
     }
 
-	pub fn towards(&self, destination: &Coordinate) -> Direction {
+	pub const fn towards(&self, destination: &Coordinate) -> Direction {
 		if (self.x - destination.x).abs() > (self.y - destination.y).abs() {
 			if self.x > destination.x {
 				Direction::Left
@@ -156,7 +171,7 @@ impl Coordinate {
 
 impl BoundingBox {
 
-    pub fn in_bounds(&self, coordinate: &Coordinate) -> bool{
+    pub const fn in_bounds(&self, coordinate: &Coordinate) -> bool{
         if coordinate.x >= self.min.x && coordinate.x <= self.max.x {
             return coordinate.y >= self.min.y && coordinate.y <= self.max.y;
         } else {
