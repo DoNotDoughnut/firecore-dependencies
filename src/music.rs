@@ -25,6 +25,7 @@ pub enum Music {
 
     EncounterBoy,
     EncounterGirl,
+    EncounterRival,
     Oak,
 
     BattleWild, // 44.480
