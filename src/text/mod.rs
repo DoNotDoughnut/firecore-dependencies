@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, Hash, Deserialize, Serialize)]
 pub struct Message {
 
     #[serde(default = "default_font")]
@@ -28,7 +28,7 @@ const fn default_font() -> usize {
     1
 }
 
-#[derive(Debug, Copy, Clone, Deserialize, Serialize)]
+#[derive(Debug, Copy, Clone, Hash, Deserialize, Serialize)]
 pub enum TextColor {
 
     White,
@@ -62,7 +62,7 @@ impl Message {
 
 }
 
-#[derive(Debug, Clone, Deserialize, Serialize)]
+#[derive(Debug, Clone, Hash, Deserialize, Serialize)]
 pub struct MessageSet {
     pub messages: Vec<Message>,
 }
