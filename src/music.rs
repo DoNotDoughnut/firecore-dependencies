@@ -35,7 +35,7 @@ pub enum Music {
 
 }
 
-pub const MUSIC_LIST: &[Music; 22] = &[
+pub const MUSIC_LIST: &[Music; 23] = &[
     Music::IntroGamefreak,
     Music::Title,
     Music::Route1,
@@ -52,6 +52,7 @@ pub const MUSIC_LIST: &[Music; 22] = &[
     Music::BattleWild,
     Music::EncounterBoy,
     Music::EncounterGirl,
+    Music::EncounterRival,
     Music::BattleTrainer,
     Music::BattleGym,
     Music::ViridianForest,
