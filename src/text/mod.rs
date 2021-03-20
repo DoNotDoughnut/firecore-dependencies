@@ -3,29 +3,33 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Clone, Hash, Deserialize, Serialize)]
 pub struct Message {
 
-    #[serde(default = "default_font")]
+    #[serde(default = "default_font_id")]
     pub font_id: usize,
     pub message: Vec<String>,
     #[serde(default)]
     pub color: TextColor,
-    #[serde(default)]
-    pub no_pause: bool,
+    #[serde(default = "default_wait_for_input")]
+    pub wait_for_input: bool,
 
 }
 
 impl Default for Message {
     fn default() -> Self {
         Self {
-            font_id: 1,
+            font_id: default_font_id(),
             color: TextColor::default(),
             message: vec![String::from("Default message")],
-            no_pause: true,
+            wait_for_input: default_wait_for_input(),
         }
     }
 }
 
-const fn default_font() -> usize {
+const fn default_font_id() -> usize {
     1
+}
+
+const fn default_wait_for_input() -> bool {
+    true
 }
 
 #[derive(Debug, Copy, Clone, Hash, Deserialize, Serialize)]
@@ -47,14 +51,14 @@ impl Default for TextColor {
 
 impl Message {
 
-    pub fn new(message: Vec<String>, no_pause: bool,) -> Self {
-        Self::with_color(message, no_pause, TextColor::default())
+    pub fn new(message: Vec<String>, wait_for_input: bool,) -> Self {
+        Self::with_color(message, wait_for_input, TextColor::default())
     }
 
-    pub fn with_color(message: Vec<String>, no_pause: bool, color: TextColor) -> Self {
+    pub fn with_color(message: Vec<String>, wait_for_input: bool, color: TextColor) -> Self {
         Self {
             message,
-            no_pause,
+            wait_for_input,
             color,
             ..Default::default()
         }
@@ -76,7 +80,7 @@ impl MessageSet {
                 font_id: font_id,
                 message: message,
                 color: color,
-                no_pause: false,
+                wait_for_input: true,
             })
         }
         Self {
