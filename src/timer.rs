@@ -33,7 +33,16 @@ impl Timer {
         return self.counter >= self.final_time;
     }
 
-    pub fn reset(&mut self) {
+    pub fn soft_reset(&mut self) {
+        if self.final_time > self.counter {
+            self.counter -= self.final_time;
+        } else {
+            self.hard_reset();
+        }
+        
+    }
+
+    pub fn hard_reset(&mut self) {
         self.counter = 0.0;
     }
 
@@ -43,12 +52,10 @@ impl Entity for Timer {
 
     fn spawn(&mut self) {
         self.alive = true;
-        self.reset();
     }
 
     fn despawn(&mut self) {
         self.alive = false;
-        self.reset();
     }
     
     fn is_alive(&self) -> bool {

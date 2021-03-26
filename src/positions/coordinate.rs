@@ -8,17 +8,19 @@ use serde::{Serialize, Deserialize};
 use crate::Direction;
 use crate::Position;
 
+type CoordNum = isize;
+
 #[derive(Debug, Default, Clone, Copy, PartialEq, Eq, Hash, Deserialize, Serialize)]
 pub struct Coordinate {
 
-	pub x: isize,
-	pub y: isize,
+	pub x: CoordNum,
+	pub y: CoordNum,
 
 }
 
 impl Coordinate {
 
-    pub fn new(x: isize, y: isize) -> Self {
+    pub fn new(x: CoordNum, y: CoordNum) -> Self {
         Self {
             x,
             y,
