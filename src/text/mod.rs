@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 pub struct Message {
 
     #[serde(default = "default_font_id")]
-    pub font_id: usize,
+    pub font_id: u8,
 
     pub lines: Vec<String>,
 
@@ -16,7 +16,7 @@ pub struct Message {
 
 }
 
-const fn default_font_id() -> usize {
+const fn default_font_id() -> u8 {
     1
 }
 
