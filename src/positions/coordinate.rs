@@ -27,7 +27,7 @@ impl Coordinate {
         }
     }
 
-	pub const fn towards(&self, destination: &Coordinate) -> Direction {
+	pub const fn towards(&self, destination: Coordinate) -> Direction {
 		if (self.x - destination.x).abs() > (self.y - destination.y).abs() {
 			if self.x > destination.x {
 				Direction::Left
@@ -43,7 +43,11 @@ impl Coordinate {
 		}
 	}
 
-    pub fn with_direction(self, direction: Direction) -> Position {
+    pub fn in_direction(self, direction: Direction) -> Self {
+        self + direction.tile_offset()
+    }
+
+    pub fn position(self, direction: Direction) -> Position {
         Position {
             coords: self,
             direction,

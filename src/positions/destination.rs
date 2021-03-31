@@ -21,17 +21,17 @@ impl Destination {
         }
     }
 
-    pub fn to(from: &Position, to: &Coordinate) -> Self {
+    pub fn to(from: &Position, to: Coordinate) -> Self {
         Self {
-            coords: *to,
+            coords: to,
             direction: Some(from.coords.towards(to)),
         }
     }
 
-    pub fn next_to(from: &Position, to: &Coordinate) -> Self {
+    pub fn next_to(from: &Position, to: Coordinate) -> Self {
         let direction = from.coords.towards(to);
         Destination {
-            coords: *to + direction.inverse().tile_offset(),
+            coords: to + direction.inverse().tile_offset(),
             direction: Some(direction),
         }
     }
