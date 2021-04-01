@@ -8,6 +8,8 @@ mod bounding_box;
 
 pub mod battle;
 
+pub use tinystr::TinyStr16;
+
 pub use timer::Timer;
 
 pub use positions::direction::Direction;
