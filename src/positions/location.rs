@@ -3,7 +3,7 @@ use tinystr::TinyStr16;
 
 use crate::GlobalPosition;
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 pub struct Location {
 
 	pub map: Option<TinyStr16>,
