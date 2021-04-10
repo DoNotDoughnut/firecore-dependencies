@@ -25,7 +25,9 @@ pub use positions::destination::Destination;
 
 pub use bounding_box::BoundingBox;
 
-pub const TILE_SIZE: u8 = 16;
+pub const WIDTH: f32 = 240.0;
+pub const HEIGHT: f32 = 160.0;
+pub const TILE_SIZE: f32 = 16.0;
 
 pub trait Entity {
 	
