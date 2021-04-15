@@ -77,7 +77,7 @@ pub trait Reset {
 
 }
 
-
+#[cfg(feature = "util")]
 pub trait Completable: Reset {
 
     fn is_finished(&self) -> bool;
