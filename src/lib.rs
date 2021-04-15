@@ -20,35 +20,46 @@ pub mod hash {
     };
 }
 
+#[cfg(feature = "util")]
 pub mod text;
 
+#[cfg(feature = "util")]
 mod timer;
 
+#[cfg(feature = "util")]
 mod positions;
 
+#[cfg(feature = "util")]
 mod bounding_box;
 
+#[cfg(feature = "util")]
 pub mod battle;
 
-pub use timer::Timer;
+#[cfg(feature = "util")]
+pub use {
+    timer::Timer,
+    positions::{
+        direction::Direction,
+        coordinate::Coordinate,
+        pixel_offset::PixelOffset,
+        position::Position,
+        global_position::GlobalPosition,
+        destination::Destination,
+    },
+    bounding_box::BoundingBox
+};
 
-pub use positions::direction::Direction;
-
-pub use positions::coordinate::Coordinate;
-pub use positions::pixel_offset::PixelOffset;
-
-pub use positions::position::Position;
-pub use positions::global_position::GlobalPosition;
+#[cfg(all(feature = "tinystr", feature = "util"))]
 pub use positions::location::Location;
 
-pub use positions::destination::Destination;
-
-pub use bounding_box::BoundingBox;
-
+#[cfg(feature = "util")]
 pub const WIDTH: f32 = 240.0;
+#[cfg(feature = "util")]
 pub const HEIGHT: f32 = 160.0;
+#[cfg(feature = "util")]
 pub const TILE_SIZE: f32 = 16.0;
 
+#[cfg(feature = "util")]
 pub trait Entity {
 	
 	fn spawn(&mut self);
@@ -59,11 +70,13 @@ pub trait Entity {
 	
 }
 
+#[cfg(feature = "util")]
 pub trait Reset {
 
 	fn reset(&mut self);
 
 }
+
 
 pub trait Completable: Reset {
 
