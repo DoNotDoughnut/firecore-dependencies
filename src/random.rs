@@ -15,11 +15,10 @@
 //! Works with `#![no_std]`, has no global state, no dependencies
 //! apart from some in the unit tests, and is generally neato.
 
-#![forbid(unsafe_code)]
-#![forbid(missing_docs)]
-#![forbid(missing_debug_implementations)]
-#![forbid(unused_results)]
-use core::ops::Range;
+// #![forbid(unsafe_code)]
+// #![forbid(missing_docs)]
+// #![forbid(missing_debug_implementations)]
+// #![forbid(unused_results)]
 use std::sync::atomic::{AtomicU64, Ordering};
 
 /// A PRNG producing a 32-bit output.
@@ -127,7 +126,7 @@ impl Random {
     /// This should be faster than `Self::rand() % end + start`, but the
     /// real advantage is it's more convenient.  Requires that
     /// `range.end <= range.start`.
-    pub fn gen_range(&self, range: Range<u32>) -> u32 {
+    pub fn gen_range<N: IntoRandNum>(&self, min: N, max: N) -> N {
         // This is harder to do well than it looks, it seems.  I don't
         // trust Lokathor's implementation 'cause I don't understand
         // it, so I went to numpy's, which points me to "Lemire's
@@ -136,6 +135,8 @@ impl Random {
         // Algorithms 3, 4 and 5 in that paper all seem fine modulo
         // minor performance differences, so this is algorithm 5.
         // It uses numpy's implementation, `buffered_bounded_lemire_uint32()`
+
+        let range = min.into_u32()..max.into_u32();
 
         debug_assert!(range.start < range.end);
         let range_starting_from_zero = 0..(range.end - range.start);
@@ -152,6 +153,32 @@ impl Random {
                 leftover = (m & 0xFFFF_FFFF) as u32;
             }
         }
-        (m >> 32) as u32 + range.start
+        N::from_u32((m >> 32) as u32 + range.start)
+    }
+}
+
+pub trait IntoRandNum {
+
+    fn into_u32(self) -> u32;
+
+    fn from_u32(num: u32) -> Self;
+
+}
+
+impl IntoRandNum for u8 {
+    fn into_u32(self) -> u32 {
+        self as u32
+    }
+    fn from_u32(num: u32) -> Self {
+        num as Self
+    }
+}
+
+impl IntoRandNum for u16 {
+    fn into_u32(self) -> u32 {
+        self as u32
+    }
+    fn from_u32(num: u32) -> Self {
+        num as Self
     }
 }
