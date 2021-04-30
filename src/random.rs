@@ -155,6 +155,11 @@ impl Random {
         }
         N::from_u32((m >> 32) as u32 + range.start)
     }
+
+    pub fn gen_bool(&self) -> bool {
+        self.gen_range(0u32, 2) == 0
+    }
+
 }
 
 pub trait IntoRandNum {
