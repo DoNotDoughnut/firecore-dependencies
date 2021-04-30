@@ -188,6 +188,15 @@ impl IntoRandNum for u16 {
     }
 }
 
+impl IntoRandNum for u32 {
+    fn into_u32(self) -> u32 {
+        self
+    }
+    fn from_u32(num: u32) -> Self {
+        num
+    }
+}
+
 impl IntoRandNum for usize {
     fn into_u32(self) -> u32 {
         self as u32
