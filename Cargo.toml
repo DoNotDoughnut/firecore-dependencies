@@ -18,6 +18,7 @@ ser = ["bincode"]
 random = []
 borrow = ["serde"]
 script = ["rhai"]
+text = ["engine", "hash", "firecore-font"]
 
 [dependencies]
 
@@ -35,6 +36,8 @@ tetra = { git = "https://github.com/DoNotDoughnut/tetra", branch = "main", defau
 serde = { version = "1.0", features = ["derive"], optional = true }
 
 rhai = { version = "0.20", optional = true } # maybe look into going back to smallvec
+
+firecore-font = { git = "https://github.com/DoNotDoughnut/firecore-font", optional = true, features = ["textures"] }
 
 [[example]]
 name = "random"

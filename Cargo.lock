@@ -270,11 +270,20 @@ dependencies = [
  "ahash",
  "arrayvec",
  "bincode",
+ "firecore-font",
  "log",
  "rhai",
  "serde",
  "tetra",
  "tinystr",
+]
+
+[[package]]
+name = "firecore-font"
+version = "0.5.0-2021-07-05"
+source = "git+https://github.com/DoNotDoughnut/firecore-font#a5cff86bfb83488f098b5cc05b8cc4a35c8159b7"
+dependencies = [
+ "serde",
 ]
 
 [[package]]

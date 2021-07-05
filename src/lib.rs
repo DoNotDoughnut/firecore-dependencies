@@ -58,6 +58,9 @@ pub extern crate rhai;
 #[cfg(feature = "engine")]
 pub extern crate tetra;
 
+#[cfg(feature = "engine")]
+pub mod graphics;
+
 #[cfg(all(feature = "engine", feature = "hash"))]
 use {
     std::{hash::Hash, fmt::Display},
