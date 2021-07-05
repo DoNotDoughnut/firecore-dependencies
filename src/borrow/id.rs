@@ -4,6 +4,9 @@ use std::{ops::Deref, hash::Hash};
 
 pub type StaticRef<V> = IdentifiableRef<'static, V>;
 
+#[cfg(feature = "str")]
+pub const UNKNOWN: str::TinyStr16 = unsafe { str::TinyStr16::new_unchecked(31093567915781749) };
+
 pub enum IdentifiableRef<'a, V: Identifiable<'a>> {
     Init(&'a V),
     Uninit(V::Id),
