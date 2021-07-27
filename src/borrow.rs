@@ -4,9 +4,6 @@ use std::{
     ops::{Deref, DerefMut},
 };
 
-mod id;
-pub use id::*;
-
 #[derive(Debug)]
 pub enum BorrowableMut<'a, T> {
     Owned(T),
